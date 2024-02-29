@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  main:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - 8001:8000
+    depends_on:
+      - main_db
+
+  main_db:
+    image: mysql:8.0.29
+    environment:
+      MYSQL_DATABASE: main_microservices
+      MYSQL_ROOT_PASSWORD: admindb10
+    volumes:
+      - ./storage/dbdata:/var/lib/mysql
+    ports:
+    - 33064:3306
