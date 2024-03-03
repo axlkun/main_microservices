@@ -9,6 +9,8 @@ class ProductUser extends Model
 {
     use HasFactory;
 
+    protected $table = 'product_user';
+
     protected $guarded = ['id'];
 
 
