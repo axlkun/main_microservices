@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ProductLiked;
 use Http;
 use App\Models\Product;
 use App\Models\ProductUser;
@@ -20,10 +21,12 @@ class ProductController extends Controller
         $user = $response->json();
 
         try{
-            ProductUser::create([
+            $productUser = ProductUser::create([
                 'user_id' => $user['id'],
                 'product_id' => $id
             ]);
+
+            ProductLiked::dispatch($productUser->toArray());
 
             return response([
                 'message' => 'success'
